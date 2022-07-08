@@ -20,6 +20,7 @@ class RegisterForm extends React.Component<RegisterFormProps,stateTypes> {
 		this.setEmail=this.setEmail.bind(this)
 		this.setPassword=this.setPassword.bind(this)
 		this.setConfirmedPassword=this.setConfirmedPassword.bind(this)
+		this.toggleAuth=this.toggleAuth.bind(this)
 	}
 
 	state: stateTypes = {
@@ -50,6 +51,10 @@ class RegisterForm extends React.Component<RegisterFormProps,stateTypes> {
 	}
 	setConfirmedPassword(e: React.ChangeEvent<HTMLInputElement>) {
 		this.setState({confirmedPassword: e.target.value})
+
+	}
+
+	toggleAuth() {
 
 	}
 
@@ -101,6 +106,16 @@ class RegisterForm extends React.Component<RegisterFormProps,stateTypes> {
                     type="submit"
                 >
                     Submit
+                </Button>
+				<Button
+                    className="button-submit"
+                    disableRipple
+					size="large"
+                    variant="outlined"
+                    type="button"
+					onClick={this.toggleAuth}
+                >
+                    toggleAuth
                 </Button>
             </Box>
         )
