@@ -29,6 +29,7 @@ const Header: FC = () => {
 						<div style={{marginLeft:'auto'}}>
 							{ !userState.isAuth && <Button href='/registration' color="inherit">Sign up</Button>}
 							{ !userState.isAuth && <Button href='/signin' color="inherit">Sign in</Button>}
+							{ userState.isAuth && <Button  color="inherit">Logout</Button>}
 						</div>
 					</Toolbar>
 				</Container>
