@@ -31,7 +31,7 @@ export const userSlice = createSlice({
             state.user.email = action.payload.email
             state.user.diskSpace = action.payload.diskSpace
             state.user.usedSpace = action.payload.usedSpace
-            // state.isAuth = true
+
         },
         login: (state, action: PayloadAction<userPayload>) => {
             state.user._id = action.payload._id
@@ -40,24 +40,19 @@ export const userSlice = createSlice({
             state.user.usedSpace = action.payload.usedSpace
             state.isAuth = true
         },
+        logout: (state) => {
+            state.user._id =''
+            state.user.email=''
+            state.user.password=''
+            state.user.diskSpace=null
+            state.user.usedSpace=null
+            state.user.avatar=''
+            state.user.files=[]
+            state.isAuth=false
+        }
     }
 })
 
 export const { registrtation, login } = userSlice.actions
 
 export default userSlice.reducer
-
-// export const userReducer = (state=userInitialState, action: userAction): userState => {
-
-//     switch (action.type) {
-//         case userActionTypes.LOGIN:
-//             return {...state, user: action.payload, isAuth: true}
-//         case userActionTypes.LOGOUT:
-//             return {...userInitialState}
-//             case userActionTypes.LOGIN_ERROR:
-//             return {...userInitialState}
-//         default:
-//             return state
-//     }
-    
-// }

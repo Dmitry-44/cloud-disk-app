@@ -90,15 +90,6 @@ export default function RegisterForm() {
             >
                 Submit
             </Button>
-            <Button
-                className="button-submit"
-                disableRipple
-                size="large"
-                variant="outlined"
-                type="button"
-            >
-                toggleAuth
-            </Button>
         </Box>
     );
 }

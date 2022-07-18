@@ -23,10 +23,33 @@ export const login = (email='', password='') => {
     return async ( dispatch : Dispatch) => {
         try {
             const response = await axios.post('http://localhost:3001/users/login', {email: email, password: password})
-            console.log('response', response)
-            // if(response) {
+            dispatch(userSlice.actions.login(response.data?.user))
+            localStorage.setItem('CloudDisk-token', response.data?.token)
+            
+        } catch(err) {
+            // dispatch(userSlice.actions.(response.data.user))
+        }
+    }
+}
+export const auth = () => {
+    return async ( dispatch : Dispatch) => {
+        try {
+            const response = await axios.post('http://localhost:3001/users/auth', {
+                headers: {
+                    Authorisation: localStorage.getItem('CloudDisk-token')
+                }
+            } )
             dispatch( userSlice.actions.login(response.data?.user) )
-            // }
+            localStorage.setItem('CloudDisk-token', response.data?.toket)
+        } catch(err) {
+            localStorage.removeItem('CloudDisk-token')
+        }
+    }
+}
+export const logout = () => {
+    return async ( dispatch : Dispatch) => {
+        try {
+            dispatch( userSlice.actions.logout() )
         } catch(err) {
             // dispatch(userSlice.actions.(response.data.user))
         }

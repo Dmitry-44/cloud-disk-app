@@ -3,7 +3,7 @@ import LoginForm from "../components/registerForm/LoginForm";
 import { useAppSelector } from "../store/hooks/redux";
 
 
-const Signin: FC = () => {
+const Login: FC = () => {
 
     const userState = useAppSelector ( state => state.user )
     
@@ -15,4 +15,4 @@ const Signin: FC = () => {
 
 }
 
-export default Signin
+export default Login

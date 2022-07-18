@@ -3,8 +3,9 @@ import { Button, FormControl, InputLabel, OutlinedInput } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../store/action-creations/user";
-import { useAppDispatch } from "../../store/hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import './register-form.css'
 
 
@@ -13,15 +14,18 @@ export default function LoginForm() {
 
     const dispatch = useAppDispatch()
 
+    const navigate = useNavigate()
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorText, setErrorText] = useState('');
+
 
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
 		setErrorText('')
 
-        dispatch(login(email,password))
+        dispatch(login(email,password)).then(() => navigate('/content'))
 	}
 	const setEmailValue = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(e.target.value)
