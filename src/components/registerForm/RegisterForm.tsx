@@ -5,7 +5,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { registration } from "../../store/action-creations/user";
 import { useAppDispatch } from "../../store/hooks/redux";
-import './register-form.css'
+import './form.css'
 
 interface RegisterFormProps{}
 

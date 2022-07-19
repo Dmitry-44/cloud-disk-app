@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../store/action-creations/user";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
-import './register-form.css'
+import './form.css'
 
 
 

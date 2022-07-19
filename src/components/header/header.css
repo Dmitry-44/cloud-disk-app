@@ -1,0 +1,11 @@
+.nav-link {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+}
+.main-logo {
+    margin-right: 15px;
+}
+.nav-link.active > button {
+    background-color: #0959a8;
+}

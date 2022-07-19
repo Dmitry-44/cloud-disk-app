@@ -10,6 +10,7 @@ import { logout } from "../../store/action-creations/user";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import './header.css'
 
 const Header: FC = () => {
 
@@ -26,21 +27,21 @@ const Header: FC = () => {
 			<AppBar position="static">
 				<Container>
 					<Toolbar variant="dense">
-						<Button>
-							<NavLink aria-label="menu" to='/'>CLOUD-DISK</NavLink>
-						</Button>
-						{userState.isAuth && 
-						<Button color="inherit">
-							<NavLink to='/content'>
-								My disk
+							<NavLink aria-label="menu" to='/' className={'nav-link main-logo'}>
+								CLOUD-DISK
 							</NavLink>
-						</Button>
+						{userState.isAuth && 
+							<NavLink to='/content' className={'nav-link'}>
+								<Button color="inherit">
+									My disk
+								</Button>
+							</NavLink>
 						}
 
 						<div style={{marginLeft:'auto'}}>
-							{ !userState.isAuth && <Button color='inherit'><NavLink to='/registration' color="inherit">Register</NavLink></Button>}
-							{ !userState.isAuth && <Button color='inherit'><NavLink to='/login' color="inherit">Login</NavLink></Button>}
-							{ userState.isAuth && <Button ><NavLink to='/logout' onClick={logoutUser} >Logout</NavLink></Button>}
+							{ !userState.isAuth && <NavLink to='/registration' className={'nav-link'}><Button color='inherit'>Register</Button></NavLink>}
+							{ !userState.isAuth && <NavLink to='/login' className={'nav-link'}><Button color='inherit'>Login</Button></NavLink>}
+							{ userState.isAuth && <Button color='inherit' onClick={logoutUser}>Logout</Button>}
 						</div>
 					</Toolbar>
 				</Container>

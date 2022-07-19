@@ -5,6 +5,8 @@ import { Dispatch } from "redux"
 import { User } from "../../types/user"
 
 
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('CloudDisk-token') || '';
+
 export const registration = (email='', password='') => {
     return async ( dispatch : Dispatch) => {
         try {
@@ -34,15 +36,13 @@ export const login = (email='', password='') => {
 export const auth = () => {
     return async ( dispatch : Dispatch) => {
         try {
-            const response = await axios.post('http://localhost:3001/users/auth', {
-                headers: {
-                    Authorisation: localStorage.getItem('CloudDisk-token')
-                }
+            const response = await axios.get('http://localhost:3001/users/auth', {
             } )
+            console.log('response', response)
             dispatch( userSlice.actions.login(response.data?.user) )
-            localStorage.setItem('CloudDisk-token', response.data?.toket)
+            // localStorage.setItem('CloudDisk-token', response.data?.token)
         } catch(err) {
-            localStorage.removeItem('CloudDisk-token')
+            // localStorage.removeItem('CloudDisk-token')
         }
     }
 }
@@ -50,6 +50,7 @@ export const logout = () => {
     return async ( dispatch : Dispatch) => {
         try {
             dispatch( userSlice.actions.logout() )
+            localStorage.removeItem('CloudDisk-token')
         } catch(err) {
             // dispatch(userSlice.actions.(response.data.user))
         }
