@@ -5,10 +5,12 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
 import  userReducer from "./reducers/userSlice";
+import  fileReducer from "./reducers/fileSlice";
 
 
 const rootReducer = combineReducers({
-    user: userReducer
+    user: userReducer,
+    file: fileReducer,
 })
 
 export function setupStore() {

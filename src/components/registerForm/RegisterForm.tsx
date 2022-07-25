@@ -3,6 +3,7 @@ import { Button, FormControl, InputLabel, OutlinedInput } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { registration } from "../../store/action-creations/user";
 import { useAppDispatch } from "../../store/hooks/redux";
 import './form.css'
@@ -19,6 +20,7 @@ type stateTypes = {
 export default function RegisterForm() {
 
     const dispatch = useAppDispatch()
+    const navigator = useNavigate()
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -31,7 +33,7 @@ export default function RegisterForm() {
 		if(password !== confirmedPassword) {
 			setErrorText('The password confirmation does not match')
 		}
-        dispatch(registration(email,password))
+        dispatch(registration(email,password)).then(() => navigator('/login'))
 	}
 	const setEmailValue = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(e.target.value)

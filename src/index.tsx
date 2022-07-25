@@ -4,8 +4,11 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import { setupStore } from './store/store';
+import axios from 'axios';
 
 const store = setupStore()
+
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('CloudDisk-token')}` || '';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
