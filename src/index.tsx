@@ -8,6 +8,7 @@ import axios from 'axios';
 
 const store = setupStore()
 
+axios.defaults.baseURL='http://localhost:3001'
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('CloudDisk-token')}` || '';
 
 const root = ReactDOM.createRoot(

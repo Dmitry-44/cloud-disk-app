@@ -7,7 +7,7 @@ import { Dispatch } from "redux"
 export const registration = (email='', password='') => {
     return async ( dispatch : Dispatch) => {
         try {
-            const response = await axios.post('http://localhost:3001/users/registration', {email: email, password: password})
+            const response = await axios.post('/users/registration', {email: email, password: password})
             // if(response) {
             dispatch( userSlice.actions.registrtation(response.data?.user) )
             // }
@@ -20,7 +20,7 @@ export const registration = (email='', password='') => {
 export const login = (email: string, password: string) => {
     return async ( dispatch : Dispatch) => {
         try {
-            const response = await axios.post('http://localhost:3001/users/login', {email: email, password: password})
+            const response = await axios.post('/users/login', {email: email, password: password})
             dispatch(userSlice.actions.login(response.data?.user))
             localStorage.setItem('CloudDisk-token', response.data?.token)
             
@@ -32,7 +32,7 @@ export const login = (email: string, password: string) => {
 export const auth = () => {
     return async ( dispatch : Dispatch) => {
         try {
-            const response = await axios.get('http://localhost:3001/users/auth', {
+            const response = await axios.get('/users/auth', {
             })
             dispatch( userSlice.actions.login(response.data?.user) )
             // localStorage.setItem('CloudDisk-token', response.data?.token)

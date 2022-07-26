@@ -14,5 +14,12 @@ export interface File {
 
 export interface fileState {
     files: File[],
-    currentDir: string | null
+    currentDir: string | null,
+    dirStack: string[]
+}
+
+export interface createFileType {
+    name: string,
+    type: string,
+    parent?: string,
 }

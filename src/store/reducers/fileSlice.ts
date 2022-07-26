@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { Reducer } from "react"
 import { File, fileState } from "../../types/file"
 
 export const initialState: fileState = {
     files: [],
-    currentDir: null
+    currentDir: null,
+    dirStack: [],
 }
 
 interface filePayload {
@@ -18,6 +18,18 @@ export const fileSlice = createSlice({
         getFiles: (state, action: PayloadAction<filePayload>) => {
             state.files = action.payload.data
         },
+        createDir: (state, action: PayloadAction<filePayload>) => {
+            state.files = [...state.files,...action.payload.data]
+        },
+        setCurrentDir: (state, action) => {
+            state.currentDir = action.payload
+        },
+        pushToStack: (state, action) => {
+            state.dirStack = [...state.dirStack, action.payload]
+        },
+        popFromStack: (state) => {
+            state.dirStack.pop()
+        }
     }
 })
 

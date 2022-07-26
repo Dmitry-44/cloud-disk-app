@@ -3,6 +3,7 @@ import { useAppSelector } from '../../store/hooks/redux';
 import FileItem from './file/File';
 import './files_table.sass'
 
+
 export default function FilesTable() {
 
     const files = useAppSelector(state=>state.file.files).map((file) => <FileItem file={file} key={file._id} />)
@@ -15,7 +16,7 @@ export default function FilesTable() {
                 <div className="size">Размер</div>
             </div>
             <div className="content">
-                {files}
+                {files.length > 0 ? files : <div className="file file-empty"><div className="name">Empty</div></div>}
             </div>
         </div>
     )
