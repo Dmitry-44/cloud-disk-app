@@ -8,14 +8,6 @@ import { registration } from "../../store/action-creations/user";
 import { useAppDispatch } from "../../store/hooks/redux";
 import './form.css'
 
-interface RegisterFormProps{}
-
-type stateTypes = {
-	email: string,
-	password: string,
-	confirmedPassword: string
-	errorText: string
-}
 
 export default function RegisterForm() {
 
@@ -47,7 +39,7 @@ export default function RegisterForm() {
 
     return (
         <Box className="form form-register" component="form" onSubmit={submitHandler}>
-            <div><h4>Registration</h4></div>
+            <div><h4 className="form-title">Registration</h4></div>
 
             <FormControl required fullWidth margin="normal">
                 <InputLabel htmlFor="email">
@@ -67,6 +59,7 @@ export default function RegisterForm() {
                 </InputLabel>
                 <OutlinedInput
                     name="password"
+                    type="password"
                     autoComplete="password"
                     onChange={setPasswordValue}
                 />
@@ -78,6 +71,7 @@ export default function RegisterForm() {
                 </InputLabel>
                 <OutlinedInput
                     name="passwordConfrim"
+                    type="password"
                     autoComplete="passwordConfrim"
                     onChange={setConfirmedPasswordValue}
                 />

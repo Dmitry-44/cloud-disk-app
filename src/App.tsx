@@ -16,8 +16,10 @@ function App() {
 	const isAuth = useAppSelector(state => state.user.isAuth)
 
 	useEffect(() => {
-		console.log('check auth in app')
-		dispatch(auth())
+		if(!!localStorage.getItem('CloudDisk-token')) {
+			console.log('check auth in app')
+			dispatch(auth())
+		}
 	},[])
 
 	return (
@@ -25,7 +27,7 @@ function App() {
 			<div className="App">
 				<Header></Header>
 				<Container>
-					{isAuth ? 
+					{/* {isAuth ? 
 					<Routes>
 						<Route path="/" element={<Index/>}/>
 						<Route path="/content" element={<ContentPage/>}/>
@@ -36,7 +38,15 @@ function App() {
 						<Route path="/registration" element={<Registration/>}/>
 						<Route path="/login" element={<Login/>}/>
 					</Routes>
-					}
+					} */}
+
+					<Routes>
+						<Route path="/" element={<Index/>}/>
+						<Route path="/content" element={<ContentPage/>}/>
+						<Route path="/" element={<Index/>}/>
+						<Route path="/registration" element={<Registration/>}/>
+						<Route path="/login" element={<Login/>}/>
+					</Routes>
 					
 				</Container>
 			</div>

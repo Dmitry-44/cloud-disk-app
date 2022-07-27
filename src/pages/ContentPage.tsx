@@ -16,12 +16,11 @@ export default function ContentPage() {
 	const navigator = useNavigate()
 	const dispatch = useAppDispatch()
 	const currentDir = useAppSelector( state => state.file.currentDir)
-	const files = useAppSelector( state => state.file.files)
 	const dirStack = useAppSelector(state => state.file.dirStack)
 	const isAuth = useAppSelector(state => state.user.isAuth)
 	useEffect(()=> {
         if(!isAuth){
-            navigator('/')
+            navigator('/login')
         }
     },[])
 	useEffect(() => {

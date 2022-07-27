@@ -36,7 +36,7 @@ export default function LoginForm() {
 
     return (
         <Box className="form form-register" component="form" onSubmit={submitHandler}>
-            <div><h4>Authorisation</h4></div>
+            <div><h4 className="form-title">Authorisation</h4></div>
 
             <FormControl required fullWidth margin="normal">
                 <InputLabel htmlFor="email">
@@ -56,6 +56,7 @@ export default function LoginForm() {
                 </InputLabel>
                 <OutlinedInput
                     name="password"
+                    type="password"
                     autoComplete="password"
                     onChange={setPasswordValue}
                 />
