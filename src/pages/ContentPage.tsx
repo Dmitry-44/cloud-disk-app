@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import FilesTable from '../components/filesTable/FilesTable'
-import { createDir, getFiles, popFromStack, setCurrentDir } from '../store/action-creations/file'
+import { createDir, getFiles, popFromStack, setCurrentDir, uploadFile } from '../store/action-creations/file'
 import { useAppDispatch, useAppSelector } from '../store/hooks/redux'
 import CreateNewFolderSharpIcon from '@mui/icons-material/CreateNewFolderSharp';
 import TextField from '@mui/material/TextField';
@@ -18,7 +18,9 @@ export default function ContentPage() {
 	const currentDir = useAppSelector( state => state.file.currentDir)
 	const dirStack = useAppSelector(state => state.file.dirStack)
 	const isAuth = useAppSelector(state => state.user.isAuth)
+	
 	useEffect(()=> {
+		console.log('check auth in page')
         if(!isAuth){
             navigator('/login')
         }
@@ -53,19 +55,34 @@ export default function ContentPage() {
 		dispatch(popFromStack())
 	}
 
+	const uploadHandler = (event: ChangeEvent<HTMLInputElement>) => {
+		if(!event.target.files)return;
+		const fileList = event.target.files
+		const files = []
+		for(let i=0;i<fileList.length; i++) {
+			files.push(fileList[i])
+			dispatch(uploadFile(fileList[i], currentDir))
+		}
+		console.log('files', files)
+	}	
+
 	return (
 		<div>
 			<div className="buttons" style={{marginTop: '20px', marginBottom: '20px'}}>
 				<Button variant="outlined" style={{marginRight: '10px'}} onClick={openDialog}>
-					Создать папку
+					Create folder
 					<CreateNewFolderSharpIcon style={{marginLeft: '5px'}} />
 				</Button>
+				<Button variant="contained" component="label" style={{marginRight: '10px'}}>
+					Upload
+					<input hidden accept="*" multiple type="file" onChange={uploadHandler} />
+				</Button>
 				{currentDir && <Button variant="outlined" onClick={clickBackHandler}>
-					Назад
+					Return
 				</Button>
 				}
 			</div>
-			<div style={{marginTop: '20px'}}>
+			<div style={{marginTop: '20px'}} >
 				<FilesTable/>
 			</div>
 			<Dialog open={dialogIsOpen} onClose={closeDialog}>

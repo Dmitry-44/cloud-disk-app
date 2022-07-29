@@ -1,11 +1,17 @@
+$borderRadius: 10px
+$contentMinHeight: 200px
 .files-table
-    border: 2px solid #5a5151
+    border-radius: 10px
+    overflow: hidden
     .header 
         display: grid
         grid-template-columns: 1fr 4fr repeat(4, 1fr)
         min-height: 50px
-        border-bottom: 2px solid #5a5151
+        font-weight: 600
         align-items: center
+        border: 2px solid #5a5151
+        border-top-right-radius: $borderRadius
+        border-top-left-radius: $borderRadius
         .name 
             grid-column-start: 2
         .date
@@ -14,4 +20,34 @@
         .size
             grid-column-start: 6
             justify-self: center
+    .content
+        border-style: solid
+        border-color: #5a5151
+        position: relative
+        padding: 5px
+        border-right-width: 1px
+        border-bottom-width: 1px
+        border-left-width: 1px
+        border-top-width: 0px
+        border-bottom-right-radius: $borderRadius
+        border-bottom-left-radius: $borderRadius
+        &.drag-area-open
+            min-height: $contentMinHeight
 
+.drag-area
+    display: none
+    position: absolute
+    inset: 5px
+    background: #f0f0f0
+    text-align: center
+    text-align: center
+    align-items: center
+    justify-content: center
+    box-shadow: 0 3px 10px rgb(17 241 107 / .5)
+    min-height: $contentMinHeight
+    &-show
+        display: flex
+    .text
+        text-transform: uppercase
+        letter-spacing: 15px
+        line-height: 25px

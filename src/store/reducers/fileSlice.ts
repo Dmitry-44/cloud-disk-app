@@ -29,6 +29,9 @@ export const fileSlice = createSlice({
         },
         popFromStack: (state) => {
             state.dirStack.pop()
+        },
+        uploadFile: (state, action) => {
+            state.files = [...state.files, action.payload]
         }
     }
 })

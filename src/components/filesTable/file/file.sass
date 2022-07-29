@@ -1,17 +1,23 @@
+$actionsBlockWidth: 250px
 .file
     display: grid
+    padding: 0 5px
+    position: relative
     grid-template-columns: 1fr 4fr repeat(4, 1fr)
     min-height: 50px
     align-items: center
     cursor: pointer
-    transition: all .4 
+    transition: all 1s ease-out
     &:hover
+        background-color: #f0f0f0
+    &:hover .name
         transform: translateX(10px)
     .img
         justify-self: end
         padding-right: 15px
     .name 
         grid-column-start: 2
+        transition: all 1s ease-out
     .date
         grid-column-start: 5
         justify-self: center
@@ -22,4 +28,24 @@
 .file-empty
     color: #b9b3b3
     &:hover
+        background-color: initial
+    &:hover .name
         transform: none
+.file
+    .actions_block
+        position: absolute
+        display: flex
+        right: 10px
+        top: 0
+        bottom: 0
+        width: $actionsBlockWidth
+        transform: translateX($actionsBlockWidth)
+        background: #f0f0f0
+        visibility: hidden
+        transition: all .6s ease-out
+        padding: 5px
+        button
+            margin: 0px 5px 
+    &:hover .actions_block
+        transform: translateX(0)
+        visibility: visible
