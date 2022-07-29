@@ -53,3 +53,27 @@ export const popFromStack = () => {
         dispatch( fileSlice.actions.popFromStack() )
     }
 }
+
+export const uploadFile = (file: Blob, parentId: string | null) => {
+    return async (dispatch: Dispatch) => {
+        const data = new FormData()
+        data.append('file', file)
+        if(parentId) {
+            data.append('parent', parentId)
+        }
+        console.log('data on front', data)
+        await axios.post('/files/upload', data, {
+            onUploadProgress: progressEvent => {
+                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                console.log('total', totalLength)
+                if (totalLength) {
+                    let progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                    console.log(progress)
+                }
+            }
+        }).then((res) => {
+            console.log('result', res)
+            dispatch( fileSlice.actions.uploadFile(res.data))
+        })
+    }
+}
