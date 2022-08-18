@@ -32,7 +32,7 @@ export const fileSlice = createSlice({
         },
         uploadFile: (state, action) => {
             state.files = [...state.files, action.payload]
-        }
+        },
     }
 })
 
