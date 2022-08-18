@@ -4,28 +4,28 @@ import { Box } from "@mui/system";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { registration } from "../../store/action-creations/user";
-import { useAppDispatch } from "../../store/hooks/redux";
+import { login } from "../../store/action-creations/user";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import './form.css'
 
 
-export default function RegisterForm() {
+
+export default function LoginForm() {
 
     const dispatch = useAppDispatch()
-    const navigator = useNavigate()
+
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmedPassword, setConfirmedPassword] = useState('');
     const [errorText, setErrorText] = useState('');
+
 
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
 		setErrorText('')
-		if(password !== confirmedPassword) {
-			setErrorText('The password confirmation does not match')
-		}
-        dispatch(registration(email,password)).then(() => navigator('/login'))
+
+        dispatch(login(email,password)).then(() => navigate('/content'))
 	}
 	const setEmailValue = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(e.target.value)
@@ -33,13 +33,10 @@ export default function RegisterForm() {
 	const setPasswordValue = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(e.target.value)
 	}
-	const setConfirmedPasswordValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setConfirmedPassword(e.target.value)
-	}
 
     return (
         <Box className="form form-register" component="form" onSubmit={submitHandler}>
-            <div><h4 className="form-title">Registration</h4></div>
+            <div><h4 className="form-title">Authorisation</h4></div>
 
             <FormControl required fullWidth margin="normal">
                 <InputLabel htmlFor="email">
@@ -64,18 +61,6 @@ export default function RegisterForm() {
                     onChange={setPasswordValue}
                 />
             </FormControl>
-
-            <FormControl required fullWidth margin="normal">
-                <InputLabel htmlFor="passwordConfrim">
-                    confirm password
-                </InputLabel>
-                <OutlinedInput
-                    name="passwordConfrim"
-                    type="password"
-                    autoComplete="passwordConfrim"
-                    onChange={setConfirmedPasswordValue}
-                />
-            </FormControl>
             <span className="error__text">{errorText}</span>
             <Button
                 className="button-submit"
@@ -86,6 +71,7 @@ export default function RegisterForm() {
             >
                 Submit
             </Button>
+
         </Box>
     );
 }
