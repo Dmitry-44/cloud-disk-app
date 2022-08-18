@@ -4,7 +4,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import './file.sass'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/redux';
-import { pushToStack, setCurrentDir } from '../../../store/action-creations/file';
+import { downloadFile, pushToStack, setCurrentDir } from '../../../store/action-creations/file';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { Button } from '@mui/material';
@@ -25,6 +25,10 @@ const FileItem: React.FC<filePropsType> = ({file}) => {
         dispatch(setCurrentDir(file._id))
     }
 
+    const download = () => {
+        downloadFile(file)
+    }
+
     return (
         <div className={`file ${file.type === 'dir' ? 'file-dir' : ''}` } onClick={()=> openDirHandler()}>
             <div className="img">
@@ -34,7 +38,7 @@ const FileItem: React.FC<filePropsType> = ({file}) => {
             <div className="date">20.20.12</div>
             <div className="size">{file.size}</div>
             <div className="actions_block">
-            <Button variant="contained" startIcon={<FileDownloadIcon />}>
+            <Button variant="contained" startIcon={<FileDownloadIcon />} onClick={()=> download()}>
                 Download
             </Button>
             <Button variant="contained" color="error" startIcon={<DeleteIcon />}>

@@ -77,3 +77,20 @@ export const uploadFile = (file: Blob, parentId: string | null) => {
         })
     }
 }
+
+export const downloadFile = async (file: File) => {
+        let res = await axios.get('/files', {
+            params: {id:file._id},
+            responseType: 'blob',
+        })
+        if(res.status === 200) {
+            const blob = res.data
+            const downloadLink = window.URL.createObjectURL(blob)
+            const link = document.createElement('a')
+            link.href=downloadLink
+            link.download = file.name
+            document.body.appendChild(link)
+            link.click()
+            link.remove()
+        }
+}
