@@ -9,6 +9,7 @@ import ContentPage from './pages/ContentPage';
 import { useAppDispatch, useAppSelector } from './store/hooks/redux';
 import { useEffect } from 'react';
 import { auth } from './store/action-creations/user';
+import UploaderPopup from './components/uploaderPopup/UploaderPopup';
 
 function App() {
 
@@ -47,7 +48,9 @@ function App() {
 						<Route path="/registration" element={<Registration/>}/>
 						<Route path="/login" element={<Login/>}/>
 					</Routes>
-					
+					<div className="uploaded-popup-container">
+						<UploaderPopup/>
+					</div>
 				</Container>
 			</div>
 		</BrowserRouter>

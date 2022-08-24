@@ -1,16 +1,16 @@
 import React from 'react'
-import { File } from '../../../types/file'
+import { IFile } from '../../../types/file'
 import FolderIcon from '@mui/icons-material/Folder';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import './file.sass'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks/redux';
-import { downloadFile, pushToStack, setCurrentDir } from '../../../store/action-creations/file';
+import { downloadFile, pushToStack, setCurrentDir, deleteFile } from '../../../store/action-creations/file';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { Button } from '@mui/material';
 
 interface filePropsType {
-    file: File
+    file: IFile
 }
 
 const FileItem: React.FC<filePropsType> = ({file}) => {
@@ -28,6 +28,9 @@ const FileItem: React.FC<filePropsType> = ({file}) => {
     const download = () => {
         downloadFile(file)
     }
+    const deleteHandler = () => {
+        dispatch(deleteFile(file))
+    }
 
     return (
         <div className={`file ${file.type === 'dir' ? 'file-dir' : ''}` } onClick={()=> openDirHandler()}>
@@ -41,7 +44,7 @@ const FileItem: React.FC<filePropsType> = ({file}) => {
             <Button variant="contained" startIcon={<FileDownloadIcon />} onClick={()=> download()}>
                 Download
             </Button>
-            <Button variant="contained" color="error" startIcon={<DeleteIcon />}>
+            <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={deleteHandler}>
                 Delete
             </Button>
             </div>

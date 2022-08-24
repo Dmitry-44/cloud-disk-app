@@ -1,7 +1,9 @@
+import { uploaderSlice } from './../reducers/uploaderSlice';
 import { fileSlice } from './../reducers/fileSlice';
 import axios from "axios"
 import { Dispatch } from "redux"
-import { createFileType, File } from '../../types/file';
+import { createFileType, IFile } from '../../types/file';
+import { uploaderFile } from '../../types/uploaderFile';
 
 
 export const getFiles = (parent='') => {
@@ -54,31 +56,38 @@ export const popFromStack = () => {
     }
 }
 
-export const uploadFile = (file: Blob, parentId: string | null) => {
+export const uploadFile = (file: File, parentId: string | null) => {
     return async (dispatch: Dispatch) => {
         const data = new FormData()
         data.append('file', file)
         if(parentId) {
             data.append('parent', parentId)
         }
-        console.log('data on front', data)
+        console.log('file in action', file)
+        const uploadFile = {id: Date.now().toString(), name: file.name, progress: 0, loaded: false, error: false}
+        dispatch( uploaderSlice.actions.activateLoader() )
+        dispatch(uploaderSlice.actions.addFile(uploadFile))
         await axios.post('/files/upload', data, {
             onUploadProgress: progressEvent => {
                 const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
                 console.log('total', totalLength)
                 if (totalLength) {
                     let progress = Math.round((progressEvent.loaded * 100) / totalLength)
-                    console.log(progress)
+                    console.log('progress', Math.round((progressEvent.loaded * 100) / totalLength))
+                    dispatch(uploaderSlice.actions.updateFile({...uploadFile, progress:progress}))
                 }
             }
         }).then((res) => {
             console.log('result', res)
+            dispatch(uploaderSlice.actions.updateFile({...uploadFile, progress:100, loaded: true}))
             dispatch( fileSlice.actions.uploadFile(res.data))
+        }).catch(err => {
+            dispatch(uploaderSlice.actions.updateFile({...uploadFile, progress:100, error: true}))
         })
     }
 }
 
-export const downloadFile = async (file: File) => {
+export const downloadFile = async (file: IFile) => {
         let res = await axios.get('/files', {
             params: {id:file._id},
             responseType: 'blob',
@@ -93,4 +102,21 @@ export const downloadFile = async (file: File) => {
             link.click()
             link.remove()
         }
+}
+
+export const deleteFile = async (file: IFile) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            let data = {id: file._id}
+            console.log('inside method')
+            await axios.post('/files/delete', data).then((res)=> {
+                console.log('inside response')
+                if(res.data.hasOwnProperty('message') && res.data.message === "ok") {
+                    dispatch( fileSlice.actions.deleteFile(res.data) )
+                }
+            })
+        } catch(err) {
+            console.log(`cretaeDir error: ${err}`)
+        }
+    }
 }

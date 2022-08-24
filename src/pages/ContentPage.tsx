@@ -58,6 +58,7 @@ export default function ContentPage() {
 	const uploadHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		if(!event.target.files)return;
 		const fileList = event.target.files
+		console.log('fileList', fileList)
 		const files = []
 		for(let i=0;i<fileList.length; i++) {
 			files.push(fileList[i])

@@ -1,4 +1,4 @@
-import { File } from "./file"
+import { IFile } from "./file"
 
 export interface User {
     _id: string,

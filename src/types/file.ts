@@ -1,6 +1,6 @@
 
 
-export interface File {
+export interface IFile {
     _id: string,
     name: string,
     type: string,
@@ -13,7 +13,7 @@ export interface File {
 }
 
 export interface fileState {
-    files: File[],
+    files: IFile[],
     currentDir: string | null,
     dirStack: string[]
 }

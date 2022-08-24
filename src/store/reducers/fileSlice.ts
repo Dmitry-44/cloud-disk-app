@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { File, fileState } from "../../types/file"
+import { IFile, fileState } from "../../types/file"
 
 export const initialState: fileState = {
     files: [],
@@ -8,7 +8,7 @@ export const initialState: fileState = {
 }
 
 interface filePayload {
-    data: File[]
+    data: IFile[]
 }
 
 export const fileSlice = createSlice({
@@ -33,6 +33,9 @@ export const fileSlice = createSlice({
         uploadFile: (state, action) => {
             state.files = [...state.files, action.payload]
         },
+        deleteFile: (state, action) => {
+            state.files = [...state.files.filter(file => file._id === action.payload)]
+        }
     }
 })
 

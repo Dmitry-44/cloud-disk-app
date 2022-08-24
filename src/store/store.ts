@@ -6,11 +6,13 @@ import thunk from "redux-thunk";
 
 import  userReducer from "./reducers/userSlice";
 import  fileReducer from "./reducers/fileSlice";
+import  uploaderReducer from "./reducers/uploaderSlice"
 
 
 const rootReducer = combineReducers({
     user: userReducer,
     file: fileReducer,
+    uploader: uploaderReducer,
 })
 
 export function setupStore() {
